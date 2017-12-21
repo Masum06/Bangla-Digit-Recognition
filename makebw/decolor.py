@@ -9,7 +9,8 @@ def makeBW(filepath):
 	im_blur = cv2.medianBlur(im_gray, 5)
 	im_adgauss = cv2.adaptiveThreshold(im_blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
 	im_blurgauss = cv2.GaussianBlur(im_adgauss, (5, 5), 0)
-	thres, im_bw = cv2.threshold(im_blurgauss, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+	blur = cv2.blur(im_blurgauss,(10,10))
+	thres, im_bw = cv2.threshold(blur, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 	cv2.imwrite(filepath[:-4] + ".png", im_bw)
 
 im_files = glob('./im/*.JPG')
